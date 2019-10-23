@@ -2,13 +2,13 @@ from flask import Flask, render_template
 from flask import request
 import csv
 
-app = Flask(__name__)
+application = Flask(__name__)
 
-# we create an environment variable: export FLASK_APP=server.py, and then we run the server: flask run
+# we create an environment variable: export FLASK_APP=application.py, and then we run the server: flask run
 # we enter the development mode by setting the environment variable: export FLASK_ENV=development
 
 # this is a root route, ie. the server sends only data when accessing its root / directory
-@app.route('/')
+@application.route('/')
 def my_home():
     # we can return a specific html file we created as long as its located in the /templates folder.
     # Also javascript and css files should be located in the /static folder. Favicon (the icon to be displayed in
@@ -19,7 +19,7 @@ def my_home():
     return render_template('index.html')
 
 # this is a /blog directory with a different content:
-@app.route('/blog')
+@application.route('/blog')
 def blog():
     return 'These are my thoughts on blogs in general!'
 # flask converts the text in html format
@@ -46,7 +46,7 @@ def write_to_cs(data):
 
 # we create a new method that runs when we hit the submit_form end point.
 # a url end point (submit_form) needs to exist with the same name in the index.html
-@app.route('/submit_form', methods=['POST', 'GET'])
+@application.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
     if request.method == "POST":  # we specified the method as post in the html in the form action
         data = request.form.to_dict()  # request.form gets the data from the front end and we transform it to dictionary
